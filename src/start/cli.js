@@ -18,19 +18,21 @@ const getAssets = require('../shared/getAssets');
 async function run() {
   const config = /** @type {ServerConfig & { stories: string[], addons: string[], configDir: string, setupMdjsPlugins: MdjsProcessPlugin[] }} */ (readCommandLineArgs());
   const rootDir = config.rootDir ? path.resolve(process.cwd(), config.rootDir) : process.cwd();
+  const pathPrefix = config.absoluteImports ? '/':'./';
 
   const storybookConfigDir = config.configDir;
   const previewPath = require.resolve('storybook-prebuilt/web-components.js');
   const managerPath = require.resolve('storybook-prebuilt/manager.js');
-  const previewPathRelative = rootDir ? `/${path.relative(rootDir, previewPath)}` : previewPath;
-  const managerPathRelative = rootDir ? `/${path.relative(rootDir, managerPath)}` : managerPath;
+  const previewPathRelative = rootDir ? `${pathPrefix}${path.relative(rootDir, previewPath)}` : previewPath;
+  const managerPathRelative = rootDir ? `${pathPrefix}${path.relative(rootDir, managerPath)}` : managerPath;
   const previewImport = toBrowserPath(previewPathRelative);
   const managerImport = toBrowserPath(managerPathRelative);
 
   const previewConfigPath = path.join(process.cwd(), storybookConfigDir, 'preview.js');
   let previewConfigImport;
   if (fs.existsSync(previewConfigPath)) {
-    previewConfigImport = `/${toBrowserPath(path.relative(rootDir, previewConfigPath))}`;
+    const previewConfigRelative = rootDir ? `${pathPrefix}${path.relative(rootDir, previewConfigPath)}` : previewConfigPath;
+    previewConfigImport = `${toBrowserPath(previewConfigRelative)}`;
   }
 
   const assets = getAssets({
@@ -38,7 +40,7 @@ async function run() {
     rootDir,
     managerImport,
     addons: config.addons,
-    absoluteImports: true,
+    absoluteImports: config.absoluteImports,
   });
 
   config.babelModernExclude = [...(config.babelModernExclude || []), '**/storybook-prebuilt/**'];
@@ -56,6 +58,7 @@ async function run() {
       previewConfigImport,
       storiesPatterns: config.stories,
       rootDir,
+      absolutePath: config.absoluteImports
     }),
   ].filter(_ => _);
 
