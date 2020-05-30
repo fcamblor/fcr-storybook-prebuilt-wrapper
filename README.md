@@ -1,101 +1,336 @@
-<p align="center"><img src="https://github.com/open-wc/open-wc/blob/master/assets/images/logo.png" width="200" alt="Open-wc Logo" /></p>
+---
+permalink: 'demoing/index.html'
+title: Demoing
+section: guides
+tags:
+  - guides
+---
 
-# Open Web Component Recommendations
+# Demoing via storybook
 
-Open Web Components provides a set of defaults, recommendations and tools to help facilitate your web component project. Our recommendations include: developing, linting, testing, building, tooling, demoing, publishing and automating.
+For demoing, documenting and showcasing different states of your Web Component, we recommend using [storybook](https://storybook.js.org/).
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code-of-conduct.md)
-[![CircleCI](https://circleci.com/gh/open-wc/open-wc.svg?style=shield)](https://circleci.com/gh/open-wc/open-wc)
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=M2UrSFVRang2OWNuZXlWSlhVc3FUVlJtTDkxMnp6eGFDb2pNakl4bGxnbz0tLUE5RjhCU0NUT1ZWa0NuQ3MySFFWWnc9PQ==--86f7fac07cdbd01dd2b26ae84dc6c8ca49e45b50)](https://www.browserstack.com/automate/public-build/M2UrSFVRang2OWNuZXlWSlhVc3FUVlJtTDkxMnp6eGFDb2pNakl4bGxnbz0tLUE5RjhCU0NUT1ZWa0NuQ3MySFFWWnc9PQ==--86f7fac07cdbd01dd2b26ae84dc6c8ca49e45b50)
-[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+⚠️ This repo is a fork of [open-wc's demoing-storybook package](https://github.com/open-wc/open-wc/packages/demoing-storybook)
+
+Differences with this repo lies in :
+- Current repo contains only scripts required to make a standalone storybook working
+- It improves things, allowing to serve storybook from an http directory (typically useful when working behind a proxy)
+
+
+[//]: # 'AUTO INSERT HEADER PREPUBLISH'
+
+# Features
+
+- Create API documentation/playground
+- Use Storybook docs mode to showcase your elements within the normal text flow
+- Works down to IE11
+- Prebuilt storybook UI (for a fast startup)
+- Uses es-dev-server (serve modern code while developing)
+- Completely separate storybook UI from your code
+
+## Demo
+
+<div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>Don't take our word for it but look at <a href="https://open-wc.org/demoing-storybook/?path=/docs/demo-card-docs--simple" target="_blank" rel="noopener noreferrer">the documentation of a demo card<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and <a href="https://open-wc.org/demoing-storybook/?path=/docs/decorators-withwebcomponentknobs--example-output" target="_blank" rel="noopener noreferrer">the documentation of the knobs decorator<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p></div>
+
+## Setup
+
+```bash
+npm init @open-wc
+# Upgrade > Demoing
+```
+
+### Manual
+
+- `npm add fcr-storybook-prebuilt-wrapper --save-dev`
+- Copy at minimum the [.storybook](https://github.com/fcamblor/fcr-storybook-prebuilt-wrapper/tree/master/demo/.storybook) folder to `.storybook`
+- If you want to bring along the examples, you may also copy the `stories` folder.
+- Be sure you have a [custom-elements.json](#custom-elementsjson) file.
+- Add the following scripts to your package.json
+
+```json
+"scripts": {
+  "storybook": "start-storybook",
+  "storybook:build": "build-storybook"
+},
+```
 
 ## Usage
 
-```bash
-# in a new or existing folder:
-npm init @open-wc
-# requires node 10 & npm 6 or higher
-```
-
-This will kickstart a menu guiding you through all available actions.
-
-```
-$ npm init @open-wc
-npx: installed 30 in 1.762s
-
-        _.,,,,,,,,,._
-     .d''           ``b.       Open Web Components Recommendations
-   .p'      Open       `q.
- .d'    Web Components  `b.    Start or upgrade your web component project with
- .d'                     `b.   ease. All our recommendations at your fingertips.
- ::   .................   ::
- `p.                     .q'   See more details at https://open-wc.org/init/
-  `p.    open-wc.org    .q'
-   `b.     @openWc     .d'
-     `q..            ..,'      Note: you can exit any time with Ctrl+C or Esc
-        '',,,,,,,,,,''
-
-
-? What would you like to do today? › - Use arrow-keys. Return to submit.
-❯   Scaffold a new project
-    Upgrade an existing project
-```
-
-## Homepage
-
-For more details please visit us at [open-wc.org](https://open-wc.org).
-
-## Packages
-
-| Package                                                             | Version                                                                                                                                                                  | Description                                                                       |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| [building-rollup](./packages/building-rollup)                       | [![building-rollup](https://img.shields.io/npm/v/@open-wc/building-rollup.svg)](https://www.npmjs.com/package/@open-wc/building-rollup)                                  | Default configuration for working with rollup.                                    |
-| [building-webpack](./packages/building-webpack)                     | [![building-webpack](https://img.shields.io/npm/v/@open-wc/building-webpack.svg)](https://www.npmjs.com/package/@open-wc/building-webpack)                               | Default configuration for working with webpack.                                   |
-| [chai-dom-equals](./packages/chai-dom-equals)                       | [![chai-dom-equals](https://img.shields.io/npm/v/@open-wc/chai-dom-equals.svg)](https://www.npmjs.com/package/@open-wc/chai-dom-equals)                                  | Chai Plugin to compare dom and shadow dom trees. Part of open-wc recommendations. |
-| [create](./packages/create)                                         | [![create](https://img.shields.io/npm/v/@open-wc/create.svg)](https://www.npmjs.com/package/@open-wc/create)                                                             | Scaffold web components following open-wc recommendations.                        |
-| [demoing-storybook](./packages/demoing-storybook)                   | [![demoing-storybook](https://img.shields.io/npm/v/@open-wc/demoing-storybook.svg)](https://www.npmjs.com/package/@open-wc/demoing-storybook)                            | Storybook configuration following open-wc recommendations.                        |
-| [eslint-config](./packages/eslint-config)                           | [![eslint-config](https://img.shields.io/npm/v/@open-wc/eslint-config.svg)](https://www.npmjs.com/package/@open-wc/eslint-config)                                        | Eslint configuration following open-wc recommendations.                           |
-| [es-dev-server](./packages/es-dev-server)                           | [![es-dev-server](https://img.shields.io/npm/v/es-dev-server.svg)](https://www.npmjs.com/package/es-dev-server)                                                          | Development server for modern web apps.                                           |
-| [polyfills-loader](./packages/polyfills-loader)                     | [![polyfills-loader](https://img.shields.io/npm/v/@open-wc/polyfills-loader.svg)](https://www.npmjs.com/package/@open-wc/polyfills-loader)                               | Load web component polyfills using dynamic imports.                               |
-| [prettier-config](./packages/prettier-config)                       | [![prettier-config](https://img.shields.io/npm/v/@open-wc/prettier-config.svg)](https://www.npmjs.com/package/@open-wc/prettier-config)                                  | Prettier configuration following open-wc recommendations.                         |
-| [scoped-elements](./packages/scoped-elements)                       | [![scoped-elements](https://img.shields.io/npm/v/@open-wc/scoped-elements.svg)](https://www.npmjs.com/package/@open-wc/scoped-elements)                                  | Auto define custom elements to scope them and avoid the name collision.           |
-| [semantic-dom-diff](./packages/semantic-dom-diff)                   | [![semantic-dom-diff](https://img.shields.io/npm/v/@open-wc/semantic-dom-diff.svg)](https://www.npmjs.com/package/@open-wc/semantic-dom-diff)                            | To compare dom and shadow dom trees. Part of open-wc recommendations.             |
-| [testing](./packages/testing)                                       | [![testing](https://img.shields.io/npm/v/@open-wc/testing.svg)](https://www.npmjs.com/package/@open-wc/testing)                                                          | Testing following open-wc recommendations.                                        |
-| [testing-helpers](./packages/testing-helpers)                       | [![testing-helpers](https://img.shields.io/npm/v/@open-wc/testing-helpers.svg)](https://www.npmjs.com/package/@open-wc/testing-helpers)                                  | Testing Helpers following open-wc recommendations.                                |
-| [testing-karma](./packages/testing-karma)                           | [![testing-karma](https://img.shields.io/npm/v/@open-wc/testing-karma.svg)](https://www.npmjs.com/package/@open-wc/testing-karma)                                        | Testing with Karma following open-wc recommendations.                             |
-| [testing-karma-bs](./packages/testing-karma-bs)                     | [![testing-karma-bs](https://img.shields.io/npm/v/@open-wc/testing-karma-bs.svg)](https://www.npmjs.com/package/@open-wc/testing-karma-bs)                               | Testing with Karma using Browserstack following open-wc recommendations.          |
-| [testing-wallaby](./packages/testing-wallaby)                       | [![testing-wallaby](https://img.shields.io/npm/v/@open-wc/testing-wallaby.svg)](https://www.npmjs.com/package/@open-wc/testing-wallaby)                                  | Testing with wallaby following open-wc recommendations.                           |
-| [webpack-import-meta-loader](./packages/webpack-import-meta-loader) | [![webpack-import-meta-loader](https://img.shields.io/npm/v/@open-wc/webpack-import-meta-loader.svg)](https://www.npmjs.com/package/@open-wc/webpack-import-meta-loader) | Webpack loader plugin to support import.meta.                                     |
-
-## Contact
-
-Feel free to reach out to us on [twitter](https://twitter.com/OpenWc) or create [a github issue](https://github.com/open-wc/open-wc/issues/new) for any feedback or questions you might have.
-
-You can also find us on the Polymer slack in the [#open-wc](https://slack.com/share/IUQNUPWUF/awabyN8iYH4dXX6aGpu16ES9/enQtOTc2Nzc2ODEyOTY3LWM5ZGExNGFiMmM4NDY2YWI2MzYwOGY5ZTNlZjk4OGU4NTFhMGJjNmVhNGI4MzVlNTMwNGRiNGIxNjc4MGJhNDg) channel.
-
-You can join the Polymer slack by visiting [https://www.polymer-project.org/slack-invite](https://www.polymer-project.org/slack-invite).
-
-## We Proudly Use
-
-<a href="http://browserstack.com/" style="border: none;"><img src="https://github.com/open-wc/open-wc/blob/master/assets/images/Browserstack-logo.svg" width="200" alt="Browserstack Logo" /></a>
-
-<a href="http://netlify.com/" style="border: none;"><img src="https://www.netlify.com/img/press/logos/full-logo-light.svg" width="185" alt="netlify logo" /></a>
-
-## Guide
+Once for all (and everytime you change anything into your `.storybook` config folder), you will have to run :
 
 ```bash
-# bootstrap/setup
-yarn install
+npm run storybook:build
+```
+in order to generate storybook's static assets.
 
-# linting
-npm run lint
+Then, to run storybook, simply run :
 
-# local testing
-npm run test
+```bash
+npm run storybook
+```
 
-# testing via browserstack
-npm run test:bs
+### CLI configuration
 
-# run commands only for a specific scope
-lerna run <command> --scope @open-wc/<package-name> --stream
+#### Dev server
+
+The storybook server is based on [es-dev-server](https://open-wc.org/developing/es-dev-server.html) and accepts the 
+same command line args defined in `.storybook/main.js`'s `esDevServer` exported property.  
+Check the docs for all available options.
+
+#### Storybook specific
+
+| name             | type    | description                                                               |
+| ---------------- | ------- | ------------------------------------------------------------------------- |
+| config-dir        | string  | Where the storybook config files are. Default: `./.storybook`               |
+| output-dir       | string  | Rollup build output directory. Default: `./static-storybook`              |
+| absolute-imports | boolean | Allows to serve storybook files using absolute paths (disabled by default) |
+
+### Configuration file
+
+By default, storybook looks for a config file called `main.js` in your config dir (default `.storybook`). In this file you can configure storybook itself, `es-dev-server` and the `rollup` build configuration.
+
+```js
+module.exports = {
+  // Globs of all the stories in your project
+  stories: ['../stories/*.stories.{js,mdx}'],
+
+  // Addons to be loaded, note that you need to import
+  // them from storybook-prebuilt
+  addons: [
+    'storybook-prebuilt/addon-actions/register.js',
+    'storybook-prebuilt/addon-knobs/register.js',
+    'storybook-prebuilt/addon-a11y/register.js',
+    'storybook-prebuilt/addon-docs/register.js',
+  ],
+
+  // Configuration for es-dev-server (start-storybook only)
+  esDevServer: {
+    nodeResolve: true,
+    open: true,
+  },
+
+  // Rollup build output directory (build-storybook only)
+  outputDir: '../dist',
+  // Configuration for rollup (build-storybook only)
+  rollup: config => {
+    return config;
+  },
+};
+```
+
+### Create documentation (mdjs)
+
+Create a `*.stories.md` (for example `card.stories.md`) file within the `stories` folder.
+
+This uses the [Markdown JavaScript (mdjs) Format](https://open-wc.org/mdjs/) via [storybook-addon-markdown-docs](https://open-wc.org/demoing/storybook-addon-markdown-docs.html).
+
+````md
+```js script
+import '../demo-wc-card.js';
+
+export default {
+  title: 'Demo Card/Docs (markdown)',
+  parameters: { component: 'demo-wc-card' } },
+};
+```
+
+# Demo Web Component Card
+
+A component meant to display small information with additional data on the back.
+// [...] use markdown to format your text
+// the following demo is inline
+
+```js story
+export const Simple = () => html` <demo-wc-card>Hello World</demo-wc-card> `;
+```
+
+## Variations
+
+Show demo with a frame and a "show code" button.
+
+```js preview-story
+export const Simple = () => html` <demo-wc-card>Hello World</demo-wc-card> `;
+```
+
+## API
+
+The api table will show the data of "demo-wc-card" in your `custom-elements.json`.
+
+<sb-props of="demo-wc-card"></sb-props>
+
+// [...]
+````
+
+### Create documentation (mdx)
+
+Create a `*.stories.mdx` (for example `card.stories.mdx`) file within the `stories` folder.
+
+```md
+import { Story, Preview, Meta, Props } from '@open-wc/demoing-storybook';
+import { html } from 'lit-html';
+import '../demo-wc-card.js';
+
+<Meta title="Card|Docs" />
+
+# Demo Web Component Card
+
+A component meant to display small information with additional data on the back.
+// [...] use markdown to format your text
+
+<Preview withToolbar>
+  <Story name="Simple" height="220px">
+    {html`
+      <demo-wc-card>Hello World</demo-wc-card>
+    `}
+  </Story>
+</Preview>
+
+## API
+
+The api table will show the data of "demo-wc-card" in your `custom-elements.json`.
+
+<Props of="demo-wc-card" />
+
+// [...]
+```
+
+### Create stories in CSF (Component story format)
+
+Create a `*.stories.js` (for example `card-variations.stories.js`) file within the `stories` folder.
+
+```js
+export default {
+  title: 'Card|Variations',
+  component: 'demo-wc-card',
+};
+
+export const singleComponent = () => html` <demo-wc-card></demo-wc-card> `;
+```
+
+For more details see the [official storybook docs](https://storybook.js.org/docs/formats/component-story-format/).
+
+You can import these templates into any other place if needed.
+
+For example in tests:
+
+```js
+import { expect, fixture } from '@open-wc/testing';
+import { singleComponent } from '../stories/card-variations.stories.js';
+
+it('has a header', async () => {
+  const el = await fixture(singleComponent);
+  expect(el.header).to.equal('Your Message');
+});
+```
+
+### Create API playground
+
+<div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>You can find a more interactive version of this in the <a href="/demoing-storybook/?path=/docs/decorators-withwebcomponentknobs--example-output">withWebComponentsKnobs docs</a>.</p></div>
+
+Base on the data in [custom-elements.json](./#custom-elementsjson) we can automatically generate knobs for your stories.
+
+To enable this feature you will need to add an additional decorator.
+
+**MDX**
+
+```md
+import { withKnobs, withWebComponentsKnobs } from '@open-wc/demoing-storybook';
+
+<Meta
+  title="WithWebComponentsKnobs|Docs"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'demo-wc-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+<Story name="Custom Header" height="220px">
+  {html`
+    <demo-wc-card header="Harry Potter">A character that is part of a book series...</demo-wc-card>
+  `}
+</Story>
+```
+
+**CSF**
+
+```js
+import { html } from 'lit-html';
+import { withKnobs, withWebComponentsKnobs } from '@open-wc/demoing-storybook';
+
+import '../demo-wc-card.js';
+
+export default {
+  title: 'Card|Playground',
+  component: 'demo-wc-card',
+  decorators: [withKnobs, withWebComponentsKnobs],
+  parameters: { options: { selectedPanel: 'storybookjs/knobs/panel' } },
+};
+
+export const singleComponent = () => html` <demo-wc-card></demo-wc-card> `;
+```
+
+For additional features like
+
+- define which components to show knobs for
+- showing knobs for multiple different components
+- syncing components states to knobs
+- Filtering properties and debugging states
+
+please see the official [documentation of the knobs for web components decorator](/demoing-storybook/?path=/docs/decorators-withwebcomponentknobs--example-output).
+
+### custom-elements.json
+
+In order to get documentation for web-components you will need to have a [custom-elements.json](https://github.com/webcomponents/custom-elementsjson) file.
+You can hand write it or better generate it. Depending on the web components sugar you are choosing your mileage may vary.
+Please not that the details of the file are still being discussed so we may adopt to changes in `custom-elements.json` without a breaking release.
+
+Known analyzers that output `custom-elements.json`:
+
+- [web-component-analyzer](https://github.com/runem/web-component-analyzer)
+  - Supports LitElement, Polymer, Vanilla, (Stencil)
+- [stenciljs](https://stenciljs.com/)
+  - Supports Stencil (but does not have all metadata)
+
+It basically looks like this:
+
+```json
+{
+  "version": 2,
+  "tags": [
+    {
+      "name": "demo-wc-card",
+      "properties": [
+        {
+          "name": "header",
+          "type": "String",
+          "description": "Shown at the top of the card"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "cssProperties": []
+    }
+  ]
+}
+```
+
+For a full example see the [./demo/custom-elements.json](./demo/custom-elements.json).
+
+### Additional middleware config like an api proxy
+
+As we are using [es-dev-server](https://open-wc.org/developing/es-dev-server.html) under the hood you can use all it's power. You can use the regular command line flags, or provide your own config via `start storybook -c /path/to/config.js`.
+
+To set up a proxy, you can set up a koa middleware. [Read more about koa here.](https://koajs.com/)
+
+```javascript
+const proxy = require('koa-proxies');
+
+module.exports = {
+  esDevServer: {
+    port: 9000,
+    middlewares: [
+      proxy('/api', {
+        target: 'http://localhost:9001',
+      }),
+    ],
+  },
+};
 ```
