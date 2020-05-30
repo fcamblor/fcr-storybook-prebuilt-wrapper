@@ -1,6 +1,6 @@
 {
-  "name": "@open-wc/demoing-storybook",
-  "version": "2.3.5",
+  "name": "fcr-storybook-prebuilt-wrapper",
+  "version": "0.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -8,11 +8,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/open-wc/open-wc.git",
-    "directory": "packages/building-storybook"
+    "url": "https://github.com/fcamblor/fcr-storybook-prebuilt-wrapper.git"
   },
-  "author": "open-wc",
-  "homepage": "https://github.com/open-wc/open-wc/tree/master/packages/demoing-storybook",
+  "author": "fcamblor",
+  "homepage": "https://github.com/fcamblor/fcr-storybook-prebuilt-wrapper/tree/master/",
   "main": "index.js",
   "bin": {
     "start-storybook": "src/start/cli.js",
