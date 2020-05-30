@@ -30,8 +30,11 @@ module.exports = {
     });
   },
   esDevServer: {
+    port: 8001,
     nodeResolve: true,
     watch: true,
     open: true,
+    rootDir: "./",
+    moduleDirs: [ 'node_modules' ]
   },
 };
