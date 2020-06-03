@@ -34,7 +34,7 @@ module.exports = {
     nodeResolve: true,
     watch: true,
     open: true,
-    rootDir: "./",
-    moduleDirs: [ 'node_modules' ]
+    rootDir: './',
+    moduleDirs: ['node_modules'],
   },
 };

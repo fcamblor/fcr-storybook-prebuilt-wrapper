@@ -18,7 +18,7 @@ function createServeStorybookTransformer({
   previewConfigImport,
   storiesPatterns,
   rootDir,
-  absolutePath
+  absolutePath,
 }) {
   const servedStoryUrls = new Set();
   const { indexHTML, iframeHTML } = assets;

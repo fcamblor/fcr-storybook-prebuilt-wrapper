@@ -50,7 +50,8 @@ module.exports = function readCommandLineArgs() {
       name: 'absolute-imports',
       type: Boolean,
       defaultValue: false,
-      description: "Generates absolute imports in URL (won't work if storybook is served on a sub path)",
+      description:
+        "Generates absolute imports in URL (won't work if storybook is served on a sub path)",
     },
     { name: 'help', type: Boolean, description: 'See all options' },
   ];

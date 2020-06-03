@@ -13,9 +13,9 @@ For demoing, documenting and showcasing different states of your Web Component, 
 ⚠️ This repo is a fork of [open-wc's demoing-storybook package](https://github.com/open-wc/open-wc/packages/demoing-storybook)
 
 Differences with this repo lies in :
+
 - Current repo contains only scripts required to make a standalone storybook working
 - It improves things, allowing to serve storybook from an http directory (typically useful when working behind a proxy)
-
 
 [//]: # 'AUTO INSERT HEADER PREPUBLISH'
 
@@ -61,6 +61,7 @@ Once for all (and everytime you change anything into your `.storybook` config fo
 ```bash
 npm run storybook:build
 ```
+
 in order to generate storybook's static assets.
 
 Then, to run storybook, simply run :
@@ -73,16 +74,16 @@ npm run storybook
 
 #### Dev server
 
-The storybook server is based on [es-dev-server](https://open-wc.org/developing/es-dev-server.html) and accepts the 
+The storybook server is based on [es-dev-server](https://open-wc.org/developing/es-dev-server.html) and accepts the
 same command line args defined in `.storybook/main.js`'s `esDevServer` exported property.  
 Check the docs for all available options.
 
 #### Storybook specific
 
-| name             | type    | description                                                               |
-| ---------------- | ------- | ------------------------------------------------------------------------- |
-| config-dir        | string  | Where the storybook config files are. Default: `./.storybook`               |
-| output-dir       | string  | Rollup build output directory. Default: `./static-storybook`              |
+| name             | type    | description                                                                |
+| ---------------- | ------- | -------------------------------------------------------------------------- |
+| config-dir       | string  | Where the storybook config files are. Default: `./.storybook`              |
+| output-dir       | string  | Rollup build output directory. Default: `./static-storybook`               |
 | absolute-imports | boolean | Allows to serve storybook files using absolute paths (disabled by default) |
 
 ### Configuration file
